@@ -2,6 +2,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_mail import Mail
+
+mail = Mail()
 
 db = SQLAlchemy()
 jwt = JWTManager()
@@ -13,6 +16,7 @@ def create_app():
 
     db.init_app(app)
     jwt.init_app(app)
+    mail.init_app(app)
 
     # Import and register blueprints
     from app.routes.auth import auth_bp

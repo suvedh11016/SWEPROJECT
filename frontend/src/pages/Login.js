@@ -162,9 +162,10 @@ function Login() {
             {loginLoading ? 'Logging in...' : 'Login'}
           </button>
           <div style={{ marginTop: 12, textAlign: 'right' }}>
-            <a href="#" style={{ color: '#007bff', textDecoration: 'underline' }}>
+            <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'underline' }}>
               Forgot password?
             </a>
+
           </div>
           {loginMsg && (
             <div style={{ marginTop: 16, color: loginMsg.startsWith('Login successful') ? 'green' : 'red' }}>
