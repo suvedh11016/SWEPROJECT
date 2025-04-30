@@ -6,6 +6,8 @@ from flask_mail import Mail, Message
 from flask import current_app
 from app.utils.token import generate_reset_token, verify_reset_token
 from flask_jwt_extended import jwt_required, get_jwt_identity
+import random
+import time
 
 mail = Mail()
 
@@ -60,27 +62,41 @@ def forgot_password():
     if not user:
         return jsonify({'error': 'Username does not exist.'}), 404
 
-    token = generate_reset_token(user.email)
-    reset_link = f"http://localhost:3000/reset-password/{token}"
-    msg = Message('Password Reset Request', recipients=[user.email])
-    msg.body = f'Click the link to reset your password: {reset_link}'
+    otp = str(random.randint(100000, 999999)).strip()  # Ensure no whitespace
+    expiry = int(time.time()) + 600  # 10 minutes
+
+    user.reset_otp = otp
+    user.otp_expiry = expiry
+    db.session.commit()
+
+    msg = Message('Your Password Reset OTP', recipients=[user.email])
+    msg.body = f'Your OTP is: {otp} (valid for 10 minutes)'
     mail.send(msg)
-    return jsonify({'message': 'A reset link has been sent to your registered email.'}), 200
 
+    return jsonify({'message': 'OTP sent to your email.'}), 200
 
-@auth_bp.route('/reset-password/<token>', methods=['POST'])
-def reset_password(token):
-    email = verify_reset_token(token)
-    if not email:
-        return jsonify({'error': 'Invalid or expired token'}), 400
-
+@auth_bp.route('/reset-password', methods=['POST'])
+def reset_password():
     data = request.get_json()
+    username = data.get('username')
+    otp = data.get('otp', '').strip()  # Trim whitespace
     password = data.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
+    current_time = int(time.time())
+    if (
+        not user.reset_otp or 
+        user.reset_otp.strip() != otp or 
+        current_time > user.otp_expiry
+    ):
+        return jsonify({'error': 'Invalid or expired OTP'}), 400
+
     user.set_password(password)
+    user.reset_otp = None
+    user.otp_expiry = None
     db.session.commit()
-    return jsonify({'message': 'Password updated successfully'}), 200
+
+    return jsonify({'message': 'Password reset successful!'}), 200
