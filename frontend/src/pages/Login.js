@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [isExistingUser, setIsExistingUser] = useState(true);
+
+  const navigate = useNavigate();
 
   // Login state
   const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -42,9 +45,12 @@ function Login() {
         body: JSON.stringify(loginData)
       });
       const data = await response.json();
+      console.log('Response:', data); // Debugging log
+
       if (response.ok) {
         setLoginMsg('Login successful!');
-        window.location.href = '/dashboard'; // Navigate to dashboard
+        localStorage.setItem('authToken', data.access_token); // Store token in local storage
+        navigate('/dashboard');
       } else {
         setLoginMsg(data.error || 'Login failed.');
       }
@@ -90,33 +96,33 @@ function Login() {
     setRegLoading(false);
   };
 
+  const buttonStyle = {
+    padding: '10px 20px',
+    background: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: 4,
+    cursor: 'pointer'
+  };
+
+  const inactiveButtonStyle = {
+    ...buttonStyle,
+    background: '#f0f0f0',
+    color: '#333'
+  };
+
   return (
     <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, border: '1px solid #ddd', borderRadius: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
         <button
           onClick={() => setIsExistingUser(true)}
-          style={{
-            padding: '10px 20px',
-            marginRight: 8,
-            background: isExistingUser ? '#007bff' : '#f0f0f0',
-            color: isExistingUser ? '#fff' : '#333',
-            border: 'none',
-            borderRadius: 4,
-            cursor: 'pointer'
-          }}
+          style={isExistingUser ? buttonStyle : inactiveButtonStyle}
         >
           Existing User
         </button>
         <button
           onClick={() => setIsExistingUser(false)}
-          style={{
-            padding: '10px 20px',
-            background: !isExistingUser ? '#007bff' : '#f0f0f0',
-            color: !isExistingUser ? '#fff' : '#333',
-            border: 'none',
-            borderRadius: 4,
-            cursor: 'pointer'
-          }}
+          style={!isExistingUser ? buttonStyle : inactiveButtonStyle}
         >
           New User
         </button>
@@ -165,7 +171,6 @@ function Login() {
             <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'underline' }}>
               Forgot password?
             </a>
-
           </div>
           {loginMsg && (
             <div style={{ marginTop: 16, color: loginMsg.startsWith('Login successful') ? 'green' : 'red' }}>

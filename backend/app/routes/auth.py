@@ -1,20 +1,14 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app.models.user import User
 from app import db
 from flask_mail import Mail, Message
-from flask import current_app
-from app.utils.token import generate_reset_token, verify_reset_token
-from flask_jwt_extended import jwt_required, get_jwt_identity
 import random
 import time
-import uuid
 
 mail = Mail()
 
 auth_bp = Blueprint("auth", __name__)
-
-
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
@@ -52,9 +46,7 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
 
     access_token = create_access_token(identity=user.id)
-    print(f"Generated access token: {access_token} + {user.id}")  # Debugging line
     return jsonify(access_token=access_token), 200
-
 
 @auth_bp.route('/forgot-password', methods=['POST'])
 def forgot_password():
@@ -107,12 +99,15 @@ def reset_password():
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
-    print("Fetching user profile...")
+    print("Fetching user profile...")  # Debugging line
+    # Log the token for debugging
+    auth_header = request.headers.get('Authorization')
+    print(f"Authorization Header: {auth_header}")
+    
     current_user_id = get_jwt_identity()
-    print(f"Current user ID: {current_user_id}")
     user = User.query.filter_by(id=current_user_id).first()
 
-    if user:
+    if not user:
         return jsonify({'error': 'User not found'}), 404
 
     user_data = {
@@ -121,16 +116,3 @@ def get_profile():
         'id': user.id
     }
     return jsonify(user_data), 200
-# def update_profile():
-#     data = request.get_json()
-#     username = data.get('username')
-#     email = data.get('email')
-#     id = data.get('id')
-
-#     user_data = {
-#         'username': username,
-#         'email': email,
-#         'id': id
-#     }
-#     return jsonify(user_data), 200
-    

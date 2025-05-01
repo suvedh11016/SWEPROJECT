@@ -1,20 +1,26 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Load variables from .env file
 
 class Config:
+    # SQLAlchemy setup
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///app.db")
-    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "super-secret-key")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MAIL_SERVER = os.getenv("MAIL_SERVER")
+
+    # JWT setup
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "super-secret-key")
+    JWT_TOKEN_LOCATION = ["headers"]
+    JWT_HEADER_NAME = "Authorization"
+    JWT_HEADER_TYPE = "Bearer"
+
+    # Mail setup
+    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
     MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
     MAIL_USE_TLS = os.getenv("MAIL_USE_TLS", "True") == "True"
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER")
-    SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
-  # Use your Brevo account email or a verified sender
-    # SECRET_KEY = os.getenv('SECRET_KEY', 'another-secret-key')
 
-   
+    # App secret
+    SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")

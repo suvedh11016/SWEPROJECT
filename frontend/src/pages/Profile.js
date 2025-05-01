@@ -1,54 +1,70 @@
-// import React from 'react';
-// import './Profile.css';
+import React, { useState, useEffect } from "react";
+import './Profile.css';
 
-// const Profile = () => {
-//   const user = {
-//     name: 'Sreekar Reddy',
-//     id: 'USR001234',
-//     email: 'sreekar@example.com',
-//   };
-
-//   return (
-//     <div className="profile-container">
-//       <div className="profile-card">
-//         <h2>User Profile</h2>
-//         <p><strong>Name:</strong> {user.name}</p>
-//         <p><strong>Unique ID:</strong> {user.id}</p>
-//         <p><strong>Email:</strong> {user.email}</p>
-//         <button className="chat-button">Chat</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
-import React, { useEffect, useState } from 'react';
-import './Profile.css'; // Assuming you have a CSS file for styling
-
-function UserProfile() {
-  const [userData, setUserData] = useState(null);
+function Profile() {
+  const [profileData, setProfileData] = useState(null);
+  const [profileMsg, setProfileMsg] = useState("");
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/profile')
-      .then(response => response.json())
-      .then(data => setUserData(data))
-      .catch(err => console.error('Error fetching user data:', err));
-  }, []);
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('authToken');
 
-  if (!userData) return <div>Loading...</div>;
+      if (!token) {
+        setProfileMsg("Please log in to view your profile.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/api/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+        console.log("Response:", data);
+
+        if (response.ok) {
+          setProfileData(data);
+        } else {
+          setProfileMsg(data.error || "Failed to fetch profile.");
+        }
+      } catch (err) {
+        setProfileMsg("Network error. Is the backend running?");
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   return (
     <div className="profile-container">
-      <div className="profile-card">
-        <h2>User Profile</h2>
-        <p><strong>Name:</strong> {userData.name}</p>
-        <p><strong>Unique ID:</strong> {userData.id}</p>
-        <p><strong>Email:</strong> {userData.email}</p>
-        <button className="chat-button">Chat</button>
-      </div>
+      <h2>Profile</h2>
+      {profileMsg ? (
+        <div className="error-message">{profileMsg}</div>
+      ) : (
+        <div>
+          {profileData ? (
+            <div className="profile-info">
+              <p>
+                <strong>Username:</strong> {profileData.username}
+              </p>
+              <p>
+                <strong>Email:</strong> {profileData.email}
+              </p>
+              <p>
+                <strong>User ID:</strong> {profileData.id}
+              </p>
+            </div>
+          ) : (
+            <p className="loading-message">Loading profile...</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-export default UserProfile;
+export default Profile;
