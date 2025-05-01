@@ -43,8 +43,8 @@ function Login() {
       });
       const data = await response.json();
       if (response.ok) {
-        setLoginMsg('Login successful! Token: ' + data.access_token);
-        // Optionally store token: localStorage.setItem('access_token', data.access_token);
+        setLoginMsg('Login successful!');
+        window.location.href = '/dashboard'; // Navigate to dashboard
       } else {
         setLoginMsg(data.error || 'Login failed.');
       }
