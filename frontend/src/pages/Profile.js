@@ -8,7 +8,6 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('authToken');
-
       if (!token) {
         setProfileMsg("Please log in to view your profile.");
         return;

@@ -7,10 +7,11 @@ const DigitalResources = () => {
   return (
     <div className="digital-container">
       <div className="sidebar">
-        <button className="nav-button">Home</button>
+        <button className="nav-button"  onClick={() => navigate('/dashboard')}>Home</button>
         <button className="nav-button" onClick={() => navigate('/upload')}>Upload</button>
         <button className="nav-button" onClick={() => navigate('/borrow')}>Borrow</button>
         <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+
       </div>
 
       <div className="main-content">

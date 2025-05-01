@@ -4,9 +4,10 @@ from dotenv import load_dotenv
 load_dotenv()  # Load variables from .env file
 
 class Config:
-    # SQLAlchemy setup
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///app.db")
+    # Replace values with your actual PostgreSQL info
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:drj@localhost:5432/campus'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
     # JWT setup
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "super-secret-key")

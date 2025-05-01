@@ -14,9 +14,16 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
 
 
+class PhysicalResource(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(200), nullable=True)
+    condition = db.Column(db.String(50), nullable=True)
+    from_date = db.Column(db.DateTime, nullable=False)
+    to_date=db.Column(db.DateTime, nullable=False)
+    upload_item = db.Column(db.String(200), nullable=True)  # Can store file or image path
 
 # from app import db
 # from werkzeug.security import generate_password_hash, check_password_hash
