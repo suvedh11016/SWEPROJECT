@@ -99,10 +99,9 @@ def reset_password():
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
-    print("Fetching user profile...")  # Debugging line
     # Log the token for debugging
     auth_header = request.headers.get('Authorization')
-    print(f"Authorization Header: {auth_header}")
+
     
     current_user_id = get_jwt_identity()
     user = User.query.filter_by(id=current_user_id).first()
