@@ -1,45 +1,18 @@
-/* Profile.css */
-
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-  margin: 0;
-  padding: 0;
-}
-
 .profile-container {
+  padding: 20px;
   max-width: 600px;
-  margin: 40px auto;
-  padding: 24px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: auto;
 }
 
-h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.profile-info p {
-  font-size: 1rem;
-  margin: 10px 0;
-}
-
-.profile-info strong {
-  color: #444;
+.profile-info {
+  margin-top: 20px;
 }
 
 .error-message {
-  color: #e53935;
-  text-align: center;
+  color: red;
   font-weight: bold;
 }
 
 .loading-message {
-  text-align: center;
-  color: #888;
+  font-style: italic;
 }
