@@ -30,6 +30,9 @@ import Dashboard from './pages/dashboard';
 import PhysicalResources from './pages/physicalresources';
 import Upload from './pages/Upload';
 import Borrow from './pages/Borrow';
+import Return from './pages/Return';
+import Profile from './pages/Profile';
+import DigitalResources from './pages/digitalresources';
 
 
 function App() {
@@ -42,9 +45,11 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/physical-resources" element={<PhysicalResources />} />
+        <Route path="/digital-resources" element={<DigitalResources />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/borrow" element={<Borrow />} />
-        
+        <Route path="/return" element={<Return />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

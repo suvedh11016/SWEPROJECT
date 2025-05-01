@@ -11,7 +11,7 @@ const Dashboard = () => {
       <button className="home-button" onClick={() => navigate('/dashboard')}>
           Home
         </button>
-        <button className="profile-button">Profile</button>
+        <button className="profile-button" onClick={() => navigate('/profile')}>Profile</button > 
       </div>
       <div className="center-content">
         <div
