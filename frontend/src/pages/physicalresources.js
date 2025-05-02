@@ -74,7 +74,7 @@ const PhysicalResources = () => {
           <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
         </div>
         <div className="profile-button">
-          <button className="nav-button" onClick={() => navigate('/profile')}>Profile</button>
+          <button className="nav-button" onClick={() => navigate('/profile/${data.userId')}>Profile</button>
         </div>
       </div>
 
@@ -114,16 +114,24 @@ const PhysicalResources = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentRecords.map((item, index) => (
-                    <tr key={item.id ?? index}>
-                      <td>{item.id ?? "N/A"}</td>
-                      <td>{item.title ?? "Untitled"}</td>
-                      <td>{item.condition ?? "Unknown"}</td>
-                      <td>{item.description ?? "-"}</td>
-                      <td>{item.uploader ?? "N/A"}</td>
-                    </tr>
-                  ))}
-                </tbody>
+                 {currentRecords.map((item, index) => (
+                 <tr key={item.id ?? index}>
+                <td>{item.id ?? "N/A"}</td>
+                <td>{item.title ?? "Untitled"}</td>
+                <td>{item.condition ?? "Unknown"}</td>
+                <td>{item.description ?? "-"}</td>
+                <td>
+                <button
+             className="nav-button"
+              onClick={() => navigate(`/profile/${item.uploaderId ?? item.uploader}`)}
+        >
+          View Profile
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
               </table>
 
               <div className="pagination">

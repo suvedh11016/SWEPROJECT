@@ -46,7 +46,7 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
 
     access_token = create_access_token(identity=user.id)
-    return jsonify(access_token=access_token), 200
+    return jsonify({"access_token": access_token, "user_id": user.id}), 200
 
 @auth_bp.route('/forgot-password', methods=['POST'])
 def forgot_password():
@@ -96,16 +96,16 @@ def reset_password():
 
     return jsonify({'message': 'Password reset successful!'}), 200
 
-@auth_bp.route('/profile', methods=['GET'])
-@jwt_required()
-def get_profile():
+
+
+
+@auth_bp.route('/profile/<int:profile_id>', methods=['GET'])
+def get_profile(profile_id):
     # Log the token for debugging
     auth_header = request.headers.get('Authorization')
 
     
-    current_user_id = get_jwt_identity()
-    user = User.query.filter_by(id=current_user_id).first()
-
+    user = User.query.get(profile_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
@@ -115,3 +115,4 @@ def get_profile():
         'id': user.id
     }
     return jsonify(user_data), 200
+

@@ -8,14 +8,16 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('authToken');
+      const user_id = localStorage.getItem('userId');
+      console.log("Token:", token);
+      console.log("User ID:", user_id);
       if (!token) {
         setProfileMsg("Please log in to view your profile.");
         return;
       }
 
-
       try {
-        const response = await fetch("http://localhost:5000/api/profile", {
+        const response = await fetch(`http://localhost:5000/api/profile/${user_id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

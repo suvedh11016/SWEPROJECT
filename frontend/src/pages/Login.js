@@ -49,7 +49,9 @@ function Login() {
 
       if (response.ok) {
         setLoginMsg('Login successful!');
-        localStorage.setItem('authToken', data.access_token); // Store token in local storage
+        localStorage.setItem('authToken', data.access_token);
+        localStorage.setItem('userId', data.user_id); // Store user ID in local storage
+        console.log('User ID:', data.user_id); // Debugging log
         navigate('/dashboard');
       } else {
         setLoginMsg(data.error || 'Login failed.');
@@ -85,6 +87,7 @@ function Login() {
       });
       const data = await response.json();
       if (response.ok) {
+       // Store user ID in local storage
         setRegMsg('Registration successful! You can now log in.');
         setRegData({ username: '', email: '', password: '', confirmPassword: '' });
       } else {

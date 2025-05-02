@@ -49,7 +49,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/borrow" element={<Borrow />} />
         <Route path="/return" element={<Return />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:user_id" element={<Profile />} />
       </Routes>
     </Router>
   );
