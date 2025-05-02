@@ -13,6 +13,7 @@ function Profile() {
         return;
       }
 
+
       try {
         const response = await fetch("http://localhost:5000/api/profile", {
           method: "GET",

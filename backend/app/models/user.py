@@ -5,7 +5,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.Text, nullable=False)
     reset_otp = db.Column(db.String(6), nullable=True)  # Ensure this exists
     otp_expiry = db.Column(db.Integer, nullable=True)   # Ensure this exists'
 
@@ -18,12 +18,13 @@ class User(db.Model):
 
 class PhysicalResource(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(200), nullable=True)
     condition = db.Column(db.String(50), nullable=True)
     from_date = db.Column(db.DateTime, nullable=False)
     to_date=db.Column(db.DateTime, nullable=False)
-    upload_item = db.Column(db.String(200), nullable=True)  # Can store file or image path
+    upload_item = db.Column(db.String(255), nullable=False)  # Stores file or image path as a string
 
 # from app import db
 # from werkzeug.security import generate_password_hash, check_password_hash

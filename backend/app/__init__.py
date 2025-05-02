@@ -26,8 +26,10 @@ def create_app():
     register_jwt_handlers(app, jwt)
 
     # Register blueprints
-    from app.routes.auth import auth_bp
+    from app.routes.auth import auth_bp 
+    from app.routes.phy_upload import  phy_upload
     app.register_blueprint(auth_bp, url_prefix="/api")
+    app.register_blueprint(phy_upload, url_prefix="/api")
 
     # Create database tables
     with app.app_context():
