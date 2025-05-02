@@ -1,4 +1,4 @@
-.borrow-container {
+/* .borrow-container {
     display: flex;
     height: 100vh;
     font-family: Arial, sans-serif;
@@ -65,4 +65,214 @@
   .search-button:hover {
     background-color: #0056b3;
   }
+   */
+   /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+   .borrow-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f8;
+    min-height: 100vh;
+  }
   
+  .top-bar {
+    background-color: #161515;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  
+  .nav-buttons,
+  .profile-button {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    background-color: #f3f4f6;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .borrow-content {
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .borrow-heading {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .search-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .search-bar {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 70%;
+    font-size: 16px;
+  }
+  
+  .search-button {
+    background-color: #111827;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #1f2937;
+  }
+   */
+
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+.borrow-page {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+  background-color: #161515;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.nav-buttons,
+.profile-button {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-button {
+  background-color: #f3f4f6;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #e5e7eb;
+}
+
+/* Main Borrow Section */
+.borrow-content {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.borrow-heading {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Search */
+.search-container {
+  position: relative; /* Allows absolute positioning of suggestions */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.search-button {
+  margin-top: 10px;
+  background-color: #111827;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #1f2937;
+}
+
+/* Suggestions List */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestions-list li {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Resource Details */
+.resource-details {
+  margin-top: 30px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: left;
+}

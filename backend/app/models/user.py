@@ -25,6 +25,14 @@ class PhysicalResource(db.Model):
     from_date = db.Column(db.DateTime, nullable=False)
     to_date=db.Column(db.DateTime, nullable=False)
     upload_item = db.Column(db.String(255), nullable=False)  # Stores file or image path as a string
+    status = db.Column(db.Boolean, nullable=False, default=True)  # True means 'available', False means 'taken'
+
+    
+
+
+
+
+
 
 # from app import db
 # from werkzeug.security import generate_password_hash, check_password_hash

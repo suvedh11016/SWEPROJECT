@@ -77,7 +77,6 @@ const PhysicalResources = () => {
           <button className="nav-button" onClick={() => navigate('/profile/${data.userId')}>Profile</button>
         </div>
       </div>
-
       <div className="ph-section">
         <h1>Physical Resources</h1>
         <p>Explore the resources or Upload the resources</p>
