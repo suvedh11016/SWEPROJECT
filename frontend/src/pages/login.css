@@ -1,0 +1,156 @@
+/* login.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f0f0;
+}
+
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left: Form Panel */
+.form {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.submit-button {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.forgot-password {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.error {
+  color: red;
+}
+
+/* Toggle buttons above form */
+.toggle-buttons {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+}
+
+.toggle-button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.toggle-button.active {
+  background-color: #000;
+  color: #fff;
+  border: none;
+}
+
+/* Right: Visual Panel */
+/* .login-container::after {
+  content: "";
+  flex: 1;
+  background-image:url("right.jpg");
+  background-size: cover;
+  position: relative;
+} */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.login-container::after {
+  content: "";
+  flex: 1;
+  background-image: url("right.jpg"); /* put this in /public folder if using React */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-container::after {
+    display: none;
+  }
+
+  .form {
+    padding: 40px;
+    flex: none;
+  }
+
+  .toggle-buttons {
+    position: static;
+    margin-bottom: 20px;
+  }
+}

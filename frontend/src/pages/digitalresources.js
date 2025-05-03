@@ -1,46 +1,160 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './digitalresources.css';
 import { useNavigate } from 'react-router-dom';
 
 const DigitalResources = () => {
   const navigate = useNavigate();
+  const [resources, setResources] = useState([]);
+  const [fetchMsg, setFetchMsg] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setFetchMsg("Please log in to view resources.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/api/digital-resources", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+        console.log("Upload data response:", data);
+
+        if (response.ok) {
+          setResources(Array.isArray(data) ? data : []);
+        } else {
+          setFetchMsg(data.error || "Failed to fetch resources.");
+        }
+      } catch (err) {
+        setFetchMsg("Network error. Is the backend running?");
+      }
+    };
+
+    fetchResources();
+  }, []);
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = resources.slice(indexOfFirstRecord, indexOfLastRecord);
+  const totalPages = Math.ceil(resources.length / recordsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleRecordsPerPageChange = (e) => {
+    setRecordsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
   return (
     <div className="digital-container">
-      <div className="sidebar">
-        <button className="nav-button"  onClick={() => navigate('/dashboard')}>Home</button>
-        <button className="nav-button" onClick={() => navigate('/upload')}>Upload</button>
-        <button className="nav-button" onClick={() => navigate('/borrow')}>Borrow</button>
-        <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
-
+      <div className="top-bar">
+        <div className="nav-buttons">
+          <button className="nav-button" onClick={() => navigate('/dashboard')}>Home</button>
+          <button className="nav-button" onClick={() => navigate('/uploaddr')}>Upload</button>
+          <button className="nav-button" onClick={() => navigate('/borrow-digital')}>Borrow</button>
+          <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+        </div>
+        <div className="profile-button">
+          <button className="nav-button" onClick={() => navigate('/profile/${data.userId')}>Profile</button>
+        </div>
+      </div>
+      <div className="ph-section">
+        <h1>Digital Resources</h1>
+        <p>Explore the resources or Upload the resources</p>
       </div>
 
       <div className="main-content">
-        <h2 className="list-heading">LIST</h2>
-        <table className="resource-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Condition</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>3D Printer</td>
-              <td>Good</td>
-              <td>Located in Lab A</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Raspberry Pi</td>
-              <td>New</td>
-              <td>Available with accessories</td>
-            </tr>
-            {/* Add more rows as needed */}
-          </tbody>
-        </table>
+        <div className="resource-list">
+          <h2 className="list-heading">List of Resources</h2>
+          {fetchMsg ? (
+            <div className="error-message">{fetchMsg}</div>
+          ) : (
+            <>
+              <div className="records-control">
+                <label htmlFor="recordsPerPage">Records per page: </label>
+                <select
+                  id="recordsPerPage"
+                  value={recordsPerPage}
+                  onChange={handleRecordsPerPageChange}
+                >
+                  {[5, 10, 15, 20].map((num) => (
+                    <option key={num} value={num}>{num}</option>
+                  ))}
+                </select>
+              </div>
+
+              <table className="resource-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Condition</th>
+                    <th>Description</th>
+                    <th>Uploader</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {currentRecords.map((item, index) => (
+                 <tr key={item.id ?? index}>
+                <td>{item.id ?? "N/A"}</td>
+                <td>{item.title ?? "Untitled"}</td>
+                <td>{item.condition ?? "Unknown"}</td>
+                <td>{item.description ?? "-"}</td>
+                <td>
+                <button
+             className="nav-button"
+              onClick={() => navigate(`/profile/${item.uploaderId ?? item.uploader}`)}
+        >
+          View Profile
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+              </table>
+
+              <div className="pagination">
+                <button
+                  className="pagination-button"
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <span className="page-info">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  className="pagination-button"
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

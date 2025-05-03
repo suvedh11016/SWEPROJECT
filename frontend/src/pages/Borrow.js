@@ -223,15 +223,21 @@ const Borrow = () => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+  
     if (query.length > 0) {
       const filtered = resources.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
       );
       setSuggestions(filtered);
+      setFilteredResources(filtered);
+      setCurrentPage(1);
     } else {
       setSuggestions([]);
+      setFilteredResources(resources); // Reset to all resources
+      setCurrentPage(1);
     }
   };
+  
 
   const handleSearchClick = () => {
     const filtered = resources.filter(item =>
@@ -256,8 +262,8 @@ const Borrow = () => {
       <div className="top-bar">
         <div className="nav-buttons">
           <button className="nav-button" onClick={() => navigate('/dashboard')}>Home</button>
-          <button className="nav-button" onClick={() => navigate('/upload-physical')}>Upload</button>
-          <button className="nav-button" onClick={() => navigate('/borrow-physical')}>Borrow</button>
+          <button className="nav-button" onClick={() => navigate('/upload')}>Upload</button>
+          <button className="nav-button" onClick={() => navigate('/borrow')}>Borrow</button>
           <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
         </div>
         <div className="profile-button">
@@ -298,18 +304,25 @@ const Borrow = () => {
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Uploaded By</th>
                   <th>From Date</th>
                   <th>To Date</th>
+                  <th>Uploaded By</th>
                 </tr>
               </thead>
               <tbody>
                 {currentRecords.map((resource, index) => (
                   <tr key={index}>
                     <td>{resource.title}</td>
-                    <td>{resource.uploader}</td>
                     <td>{new Date(resource.from_date).toLocaleDateString('en-GB')}</td>
                     <td>{new Date(resource.to_date).toLocaleDateString('en-GB')}</td>
+                    <td>
+                      <button
+                        className="nav-button"
+                        onClick={() => navigate(`/profile/${resource.uploaderId}`)}
+                      >
+                        View Profile
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

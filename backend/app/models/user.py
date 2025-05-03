@@ -27,6 +27,15 @@ class PhysicalResource(db.Model):
     upload_item = db.Column(db.String(255), nullable=False)  # Stores file or image path as a string
     status = db.Column(db.Boolean, nullable=False, default=True)  # True means 'available', False means 'taken'
 
+
+class DigitalResource(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(200), nullable=True)
+    condition = db.Column(db.String(50), nullable=True)
+    upload_item = db.Column(db.String(255), nullable=False)  # Stores file or image path as a string
+    status = db.Column(db.Boolean, nullable=False, default=True)  # True means 'available', False means 'taken'
     
 
 

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './upload.css';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function Upload() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -11,6 +15,12 @@ function Upload() {
   });
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showDoraemon, setShowDoraemon] = useState(true);
+
+   useEffect(() => {
+      const timer = setTimeout(() => setShowDoraemon(false), 3000);
+      return () => clearTimeout(timer);
+    }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -73,40 +83,66 @@ function Upload() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, border: '1px solid #ddd', borderRadius: 8 }}>
+    
+    <div className="upload-form-container">
+      <div className="top-bar">
+        <div className="nav-buttons">
+          <button className="nav-button" onClick={() => navigate('/dashboard')}>Home</button>
+          <button className="nav-button" onClick={() => navigate('/upload-physical')}>Upload</button>
+          <button className="nav-button" onClick={() => navigate('/borrow-physical')}>Borrow</button>
+          <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+        </div>
+        <div className="profile-button">
+          <button className="nav-button" onClick={() => navigate('/profile')}>Profile</button>
+        </div>
+      </div>
+      <AnimatePresence>
+                {showDoraemon && (
+                  <motion.div
+                    className="doraemon-box"
+                    initial={{ x: '100%' }}
+                    animate={{ x: '0%' }}
+                    exit={{ x: '100%' }}
+                    transition={{ type: 'spring', stiffness: 100, damping: 12 }}
+                  >
+                    <img src="/upload.png" alt="Doraemon" className="doraemon-img" />
+                    <p className="doraemon-hi">You can Upload and add Details about the Item</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
       <h2>Upload Physical Resource</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 16 }}>
+      <div className="form-group">
           <label>Title</label>
           <input
             type="text"
             name="title"
             value={form.title}
             onChange={handleChange}
-            required
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+            required className="form-input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+       
+        <div className="form-group">
           <label>Description</label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+            className="form-input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="form-group">
           <label>Condition</label>
           <input
             type="text"
             name="condition"
             value={form.condition}
             onChange={handleChange}
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+             className="form-input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="form-group">
           <label>From Date</label>
           <input
             type="date"
@@ -114,10 +150,10 @@ function Upload() {
             value={form.from_date}
             onChange={handleChange}
             required
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+            className="form-input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="form-group">
           <label>To Date</label>
           <input
             type="date"
@@ -125,10 +161,10 @@ function Upload() {
             value={form.to_date}
             onChange={handleChange}
             required
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+            className="form-input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="form-group">
           <label>Google Drive Link</label>
           <input
             type="url"
@@ -136,20 +172,14 @@ function Upload() {
             value={form.upload_item}
             onChange={handleChange}
             required
-            style={{ width: '100%', padding: 8, marginTop: 4 }}
+            className="form-input"
             placeholder="Paste the Google Drive link here"
           />
         </div>
         <button
           type="submit"
-          style={{
-            width: '100%',
-            padding: 10,
-            background: '#007bff',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 4
-          }}
+         
+          className="submit-btn"
           disabled={loading}
         >
           {loading ? 'Uploading...' : 'Upload'}

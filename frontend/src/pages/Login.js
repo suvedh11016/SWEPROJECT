@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css'; // Import your CSS file for styling
 
 function Login() {
   const [isExistingUser, setIsExistingUser] = useState(true);
@@ -114,143 +115,268 @@ function Login() {
     color: '#333'
   };
 
-  return (
-    <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, border: '1px solid #ddd', borderRadius: 8 }}>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-        <button
-          onClick={() => setIsExistingUser(true)}
-          style={isExistingUser ? buttonStyle : inactiveButtonStyle}
-        >
-          Existing User
-        </button>
-        <button
-          onClick={() => setIsExistingUser(false)}
-          style={!isExistingUser ? buttonStyle : inactiveButtonStyle}
-        >
-          New User
-        </button>
-      </div>
+//   return (
+//     <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, border: '1px solid #ddd', borderRadius: 8 }}>
+//       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+//         <button
+//           onClick={() => setIsExistingUser(true)}
+//           style={isExistingUser ? buttonStyle : inactiveButtonStyle}
+//         >
+//           Existing User
+//         </button>
+//         <button
+//           onClick={() => setIsExistingUser(false)}
+//           style={!isExistingUser ? buttonStyle : inactiveButtonStyle}
+//         >
+//           New User
+//         </button>
+//       </div>
 
-      {isExistingUser ? (
-        <form onSubmit={handleLoginSubmit}>
-          <h2>Login</h2>
-          <div style={{ marginBottom: 16 }}>
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={loginData.username}
-              onChange={handleLoginChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={loginData.password}
-              onChange={handleLoginChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: 10,
-              background: '#007bff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 4
-            }}
-            disabled={loginLoading}
-          >
-            {loginLoading ? 'Logging in...' : 'Login'}
-          </button>
-          <div style={{ marginTop: 12, textAlign: 'right' }}>
-            <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'underline' }}>
-              Forgot password?
-            </a>
-          </div>
-          {loginMsg && (
-            <div style={{ marginTop: 16, color: loginMsg.startsWith('Login successful') ? 'green' : 'red' }}>
-              {loginMsg}
-            </div>
-          )}
-        </form>
-      ) : (
-        <form onSubmit={handleRegSubmit}>
-          <h2>Register</h2>
-          <div style={{ marginBottom: 16 }}>
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={regData.username}
-              onChange={handleRegChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={regData.email}
-              onChange={handleRegChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={regData.password}
-              onChange={handleRegChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={regData.confirmPassword}
-              onChange={handleRegChange}
-              required
-              style={{ width: '100%', padding: 8, marginTop: 4 }}
-            />
-          </div>
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: 10,
-              background: '#007bff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 4
-            }}
-            disabled={regLoading}
-          >
-            {regLoading ? 'Registering...' : 'Register'}
-          </button>
-          {regMsg && (
-            <div style={{ marginTop: 16, color: regMsg.startsWith('Registration successful') ? 'green' : 'red' }}>
-              {regMsg}
-            </div>
-          )}
-        </form>
-      )}
+//       {isExistingUser ? (
+//         <form onSubmit={handleLoginSubmit}>
+//           <h2>Login</h2>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Username</label>
+//             <input
+//               type="text"
+//               name="username"
+//               value={loginData.username}
+//               onChange={handleLoginChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Password</label>
+//             <input
+//               type="password"
+//               name="password"
+//               value={loginData.password}
+//               onChange={handleLoginChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <button
+//             type="submit"
+//             style={{
+//               width: '100%',
+//               padding: 10,
+//               background: '#007bff',
+//               color: '#fff',
+//               border: 'none',
+//               borderRadius: 4
+//             }}
+//             disabled={loginLoading}
+//           >
+//             {loginLoading ? 'Logging in...' : 'Login'}
+//           </button>
+//           <div style={{ marginTop: 12, textAlign: 'right' }}>
+//             <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'underline' }}>
+//               Forgot password?
+//             </a>
+//           </div>
+//           {loginMsg && (
+//             <div style={{ marginTop: 16, color: loginMsg.startsWith('Login successful') ? 'green' : 'red' }}>
+//               {loginMsg}
+//             </div>
+//           )}
+//         </form>
+//       ) : (
+//         <form onSubmit={handleRegSubmit}>
+//           <h2>Register</h2>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Username</label>
+//             <input
+//               type="text"
+//               name="username"
+//               value={regData.username}
+//               onChange={handleRegChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Email</label>
+//             <input
+//               type="email"
+//               name="email"
+//               value={regData.email}
+//               onChange={handleRegChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Password</label>
+//             <input
+//               type="password"
+//               name="password"
+//               value={regData.password}
+//               onChange={handleRegChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <div style={{ marginBottom: 16 }}>
+//             <label>Confirm Password</label>
+//             <input
+//               type="password"
+//               name="confirmPassword"
+//               value={regData.confirmPassword}
+//               onChange={handleRegChange}
+//               required
+//               style={{ width: '100%', padding: 8, marginTop: 4 }}
+//             />
+//           </div>
+//           <button
+//             type="submit"
+//             style={{
+//               width: '100%',
+//               padding: 10,
+//               background: '#007bff',
+//               color: '#fff',
+//               border: 'none',
+//               borderRadius: 4
+//             }}
+//             disabled={regLoading}
+//           >
+//             {regLoading ? 'Registering...' : 'Register'}
+//           </button>
+//           {regMsg && (
+//             <div style={{ marginTop: 16, color: regMsg.startsWith('Registration successful') ? 'green' : 'red' }}>
+//               {regMsg}
+//             </div>
+//           )}
+//         </form>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default Login;
+
+return (
+  <div className="login-container">
+    <div className="toggle-buttons">
+      <button
+        onClick={() => setIsExistingUser(true)}
+        className={`toggle-button ${isExistingUser ? 'active' : ''}`}
+      >
+        Existing User
+      </button>
+      <button
+        onClick={() => setIsExistingUser(false)}
+        className={`toggle-button ${!isExistingUser ? 'active' : ''}`}
+      >
+        New User
+      </button>
     </div>
-  );
+
+    {isExistingUser ? (
+      <form onSubmit={handleLoginSubmit} className="form">
+        <h2 className="form-title">Login</h2>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={loginData.username}
+            onChange={handleLoginChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={loginData.password}
+            onChange={handleLoginChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <button
+          type="submit"
+          className="submit-button"
+          disabled={loginLoading}
+        >
+          {loginLoading ? 'Logging in...' : 'Login'}
+        </button>
+        <div className="forgot-password">
+          <a href="/forgot-password">Forgot password?</a>
+        </div>
+        {loginMsg && (
+          <div className={`message ${loginMsg.startsWith('Login successful') ? 'success' : 'error'}`}>
+            {loginMsg}
+          </div>
+        )}
+      </form>
+    ) : (
+      <form onSubmit={handleRegSubmit} className="form">
+        <h2 className="form-title">Register</h2>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={regData.username}
+            onChange={handleRegChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={regData.email}
+            onChange={handleRegChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={regData.password}
+            onChange={handleRegChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={regData.confirmPassword}
+            onChange={handleRegChange}
+            required
+            className="input-field"
+          />
+        </div>
+        <button
+          type="submit"
+          className="submit-button"
+          disabled={regLoading}
+        >
+          {regLoading ? 'Registering...' : 'Register'}
+        </button>
+        {regMsg && (
+          <div className={`message ${regMsg.startsWith('Registration successful') ? 'success' : 'error'}`}>
+            {regMsg}
+          </div>
+        )}
+      </form>
+    )}
+  </div>
+);
 }
 
 export default Login;

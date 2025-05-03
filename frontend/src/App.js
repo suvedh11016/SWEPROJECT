@@ -33,6 +33,8 @@ import Borrow from './pages/Borrow';
 import Return from './pages/Return';
 import Profile from './pages/Profile';
 import DigitalResources from './pages/digitalresources';
+import UploadDigital from './pages/uploaddr';
+import BorrowDigital from './pages/borrow-digital'; 
 
 
 
@@ -51,6 +53,8 @@ function App() {
         <Route path="/borrow" element={<Borrow />} />
         <Route path="/return" element={<Return />} />
         <Route path="/profile/:user_id" element={<Profile />} />
+        <Route path="/uploaddr" element={<UploadDigital />} />
+        <Route path="/borrow-digital" element={<BorrowDigital />} />
       </Routes>
     </Router>
   );
