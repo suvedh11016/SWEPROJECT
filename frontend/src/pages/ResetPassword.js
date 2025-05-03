@@ -86,7 +86,7 @@ function ResetPassword() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username,
-          otp: otp.trim(),  // Trim whitespace
+          otp: otp.trim(),
           password
         })
       });
@@ -94,7 +94,7 @@ function ResetPassword() {
       if (response.ok) {
         setMsg('Password reset! Redirecting...');
         setTimeout(() => {
-            navigate('/');
+          navigate('/');
         }, 1500);
       } else {
         setMsg(data.error || 'Reset failed.');
@@ -106,40 +106,171 @@ function ResetPassword() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, border: '1px solid #ddd', borderRadius: 8 }}>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          disabled
-          style={{ width: '100%', padding: 8, marginBottom: 16, background: '#f0f0f0' }}
-        />
-        <input
-          type="text"
-          placeholder="OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          required
-          style={{ width: '100%', padding: 8, marginBottom: 16 }}
-        />
-        <input
-          type="password"
-          placeholder="New Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{ width: '100%', padding: 8, marginBottom: 16 }}
-        />
-        <button
-          type="submit"
-          style={{ width: '100%', padding: 10, background: '#007bff', color: 'white', border: 'none', borderRadius: 4 }}
-          disabled={loading}
-        >
-          {loading ? 'Resetting...' : 'Reset Password'}
-        </button>
-        {msg && <div style={{ marginTop: 16, color: msg.includes('success') ? 'green' : 'red' }}>{msg}</div>}
-      </form>
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      minHeight: '100vh', 
+      backgroundColor: 'white' 
+    }}>
+      <div style={{ 
+        width: '100%', 
+        maxWidth: '450px', 
+        backgroundColor: '#f5f7fa', 
+        borderRadius: '16px', 
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+        overflow: 'hidden'
+      }}>
+        <div style={{ padding: '32px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <h2 style={{ 
+              fontSize: '28px', 
+              fontWeight: 'bold', 
+              color: '#374151', 
+              marginBottom: '8px' 
+            }}>Reset Password</h2>
+            <p style={{ 
+              fontSize: '16px', 
+              color: '#6b7280' 
+            }}>Enter the OTP sent to your email and set a new password</p>
+          </div>
+          
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '16px', 
+                fontWeight: '500', 
+                color: '#374151', 
+                marginBottom: '8px' 
+              }}>
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                disabled
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #d1d5db', 
+                  fontSize: '16px', 
+                  backgroundColor: '#f0f0f0', 
+                  marginBottom: '16px' 
+                }}
+              />
+            </div>
+            
+            <div>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '16px', 
+                fontWeight: '500', 
+                color: '#374151', 
+                marginBottom: '8px' 
+              }}>
+                OTP
+              </label>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #d1d5db', 
+                  fontSize: '16px', 
+                  marginBottom: '16px' 
+                }}
+              />
+            </div>
+            
+            <div>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '16px', 
+                fontWeight: '500', 
+                color: '#374151', 
+                marginBottom: '8px' 
+              }}>
+                New Password
+              </label>
+              <input
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #d1d5db', 
+                  fontSize: '16px', 
+                  marginBottom: '16px' 
+                }}
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              style={{ 
+                width: '100%', 
+                padding: '12px', 
+                backgroundColor: '#374151', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '8px', 
+                fontSize: '16px', 
+                fontWeight: '500', 
+                cursor: loading ? 'not-allowed' : 'pointer', 
+                opacity: loading ? 0.7 : 1 
+              }}
+            >
+              {loading ? 'Resetting...' : 'Reset Password'}
+            </button>
+          </form>
+          
+          {msg && (
+            <div style={{ 
+              marginTop: '16px', 
+              padding: '12px', 
+              borderRadius: '8px', 
+              backgroundColor: msg.includes('Password reset') ? '#f0fdf4' : '#fef2f2', 
+              color: msg.includes('Password reset') ? '#166534' : '#b91c1c', 
+              border: `1px solid ${msg.includes('Password reset') ? '#bbf7d0' : '#fecaca'}` 
+            }}>
+              {msg}
+            </div>
+          )}
+          
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            <button
+              onClick={() => navigate('/')}
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#3b82f6', 
+                fontSize: '16px', 
+                fontWeight: '500', 
+                cursor: 'pointer' 
+              }}
+            >
+              Back to Login
+            </button>
+          </div>
+        </div>
+        
+        <div style={{ 
+          height: '4px', 
+          background: 'linear-gradient(to right, #4b5563, rgb(20, 66, 136), #4b5563)' 
+        }}></div>
+      </div>
     </div>
   );
 }

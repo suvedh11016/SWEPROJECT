@@ -5,7 +5,7 @@ load_dotenv()  # Load variables from .env file
 
 class Config:
     # Replace values with your actual PostgreSQL info
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:drj@localhost:5432/campus'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1@localhost:5432/campus'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

@@ -61,9 +61,8 @@ const Dashboard = () => {
         </motion.div>
       )}
     </AnimatePresence>
-    
-    
-          /* Top Bar */
+
+          
                 <motion.div
                 className="top-bar"
                 initial={{ y: -60, opacity: 0 }}
