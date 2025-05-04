@@ -30,11 +30,16 @@ import Dashboard from './pages/dashboard';
 import PhysicalResources from './pages/physicalresources';
 import Upload from './pages/Upload';
 import Borrow from './pages/Borrow';
-import Return from './pages/Return';
 import Profile from './pages/Profile';
 import DigitalResources from './pages/digitalresources';
 import UploadDigital from './pages/uploaddr';
 import BorrowDigital from './pages/borrow-digital'; 
+import GivenPH from './pages/givenph';
+import GivenDT from './pages/givendt';
+import TakenPH from './pages/takenph';
+import TakenDT from './pages/takendt';
+import Returnph from './pages/Returnph';
+import Returndt from './pages/Returndt'; 
 
 
 
@@ -55,6 +60,12 @@ function App() {
         <Route path="/profile/:user_id" element={<Profile />} />
         <Route path="/uploaddr" element={<UploadDigital />} />
         <Route path="/borrow-digital" element={<BorrowDigital />} />
+        <Route path="/givenph" element={<GivenPH />} />
+        <Route path="/givendt" element={<GivenDT />} />
+        <Route path="/takenph" element={<TakenPH />} />
+        <Route path="/takendt" element={<TakenDT />} />
+        <Route path="/return-physical" element={<Returnph />} />
+        <Route path="/return-digital" element={<Returndt />} />
       </Routes>
     </Router>
   );
