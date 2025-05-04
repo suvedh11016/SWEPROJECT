@@ -1,0 +1,122 @@
+/* .list-container {
+    background-color: #000;
+    color: #fff;
+    padding: 2rem;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .list-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #fff;
+  }
+  
+  th {
+    background-color: #111;
+    color: #fff;
+  }
+  
+  tr:hover {
+    background-color: #222;
+  }
+  
+  @media screen and (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    th {
+      position: sticky;
+      top: 0;
+      background: #000;
+      z-index: 1;
+    }
+  
+    td {
+      border: none;
+      border-bottom: 1px solid #444;
+      position: relative;
+      padding-left: 50%;
+    }
+  
+    td::before {
+      position: absolute;
+      left: 0;
+      width: 45%;
+      white-space: nowrap;
+      padding-left: 1rem;
+      font-weight: bold;
+      color: #bbb;
+    }
+  
+    td:nth-of-type(1)::before { content: "ID"; }
+    td:nth-of-type(2)::before { content: "Title"; }
+    td:nth-of-type(3)::before { content: "Date"; }
+    td:nth-of-type(4)::before { content: "Status"; }
+    td:nth-of-type(5)::before { content: "User"; }
+  }
+   */
+   .list-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    min-height: 100vh;
+  }
+  
+  /* Heading styling */
+  .list-heading {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #000000;
+    text-align: center;
+  }
+  
+  /* Table styling */
+  .resource-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .resource-table th,
+  .resource-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+    color: #000000; /* Set text color to black */
+  }
+  
+  .resource-table th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+  }
+  
+  .resource-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  
+  .resource-table tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+  
