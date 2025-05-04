@@ -71,7 +71,8 @@ const PhysicalResources = () => {
           <button className="nav-button" onClick={() => navigate('/dashboard')}>Home</button>
           <button className="nav-button" onClick={() => navigate('/upload')}>Upload</button>
           <button className="nav-button" onClick={() => navigate('/borrow')}>Borrow</button>
-          <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+          // <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+          <button className="nav-button" onClick={() => navigate('/return-physical')}>Return</button>
         </div>
         <div className="profile-button">
           <button className="nav-button" onClick={() => navigate('/profile/${data.userId')}>Profile</button>
