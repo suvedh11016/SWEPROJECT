@@ -71,7 +71,8 @@ const DigitalResources = () => {
           <button className="nav-button" onClick={() => navigate('/dashboard')}>Home</button>
           <button className="nav-button" onClick={() => navigate('/uploaddr')}>Upload</button>
           <button className="nav-button" onClick={() => navigate('/borrow-digital')}>Borrow</button>
-          <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+          // <button className="nav-button" onClick={() => navigate('/return')}>Return</button>
+          <button className="nav-button" onClick={() => navigate('/return-digital')}>Return</button>
         </div>
         <div className="profile-button">
           <button className="nav-button" onClick={() => navigate('/profile/${data.userId')}>Profile</button>
