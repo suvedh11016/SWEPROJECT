@@ -87,7 +87,14 @@ const Dashboard = () => {
                   >
                   Profile
                   </motion.button>
-                </div>  
+                  <motion.button
+                  className="nav-button"
+                  onClick={() => navigate('/chat')}
+                  whileTap={{ scale: 0.95 }}
+                 >
+                  Chat
+                  </motion.button>
+                      </div>  
                 </motion.div>
             
                 {/* Welcome Section */}
